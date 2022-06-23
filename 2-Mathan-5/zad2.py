@@ -3,24 +3,27 @@ import matplotlib.pyplot as plt
 from numpy import exp, sqrt, sin, log, linspace, seterr, nanmin, \
     nanmax, inf
 
-matplotlib.use("TkAgg")
+# matplotlib.use("TkAgg")
 seterr(divide='ignore', invalid='ignore')  # обработка ошибок в numpy
 
 # массив лямбда-функций
 func = [lambda x: 1 / x,
-        lambda x: 1 / ((x - 3) ^ 2 - 3),
-        lambda x: (x / (x ^ 2 - 2 * x)),
-        lambda x: (x ^ 2 - 3) / (sqrt(x ^ 2 - 1)),
-        lambda x: (exp(1 / (x + 3))),
-        lambda x: (sin(x) / x),
+        lambda x: x / (x ** 2 - 4 * x + 3),
+        lambda x: x ** 2 / (x ** 2 - 4),
+        lambda x: sqrt(x ** 2 - 1),
+        lambda x: (x ** 2 + 1) / sqrt(x ** 2 - 1),
+        lambda x: (exp(-x ** 2) + 2),
         lambda x: (1 / (1 - exp(x))),
-        lambda x: (sqrt(x ^ 2 - 1)),
-        lambda x: (exp(-x ^ 2) + 3),
-        lambda x: log(1 + x)]
+        lambda x: (exp(1 / x)),
+        lambda x: (sin(x) / x),
+        lambda x: (log(1 + x))]
 
-hl = [0, 0, 0, None, 1, None, 0, None, 3, None]  # горизонтальные асимптоты
-vl = [[0], [-3, 3], [2], [-3], [], [0], [0], [], [], []]  # вертикальные асимптоты
-al = [[], [], [], [lambda x: -x, lambda x: x], [], [], [], [lambda x: -x, lambda x: x], [], []]  # наклонные асимптоты
+hl = [0, 0, 1, None, None, 2, 0, 1, 0, None]  # горизонтальные асимптоты
+vl = [[0], [1, 3], [-2, 2], [], [-1, 1], [], [0], [0], [0], []]  # вертикальные асимптоты
+al = [[], [], [], [lambda x: x], [lambda x: x], [], [], [], [], []]  # наклонные асимптоты
+name = [r'$y = \frac{1}{x}$', r'$y = \frac{x}{x ^ 2 - 4 \cdot x + 3}$', r'$y = \frac{x ^ 2}{x ^ 2 - 4}$',
+        r'$y = \sqrt{x ^ 2 - 1}$', r'$y = \frac{x ^ 2 + 1}{\sqrt{x ^ 2 - 1}}$', r'$y = e^{-x ^ 2} + 2$',
+        r'$y = \frac{1}{1 - e^x}$', r'$y = e^{\frac{1}{x}}$', r'$y = \frac{\sin(x)}{x}$', r'$y = \ln(1 + x)$']
 
 def select_function():
     print("Список функций:")
@@ -41,21 +44,19 @@ while number != -1:
         print("1. Выбрать точку", "2. Вернуться к списку функций", sep="\n")
         action = int(input())
         while action not in [1, 2]:
-            action = int(input("Номер действия некорректный, введите 1 или 2: "))
+            try:
+                action = int(input("Номер действия некорректный, введите 1 или 2: "))
+            except ValueError:
+                pass
         if action == 1:
-            # try:
-            #     x0 = float(input("Введите точку: "))
-            #     if (number == 3 or number == 4) and -1 < x0 < 1:
-            #         print('В этой точке функция не существует')
-            #         continue
-            #     if number == 9 and x0 <= -1:
-            #         print('В этой точке функция не существует')
-            #         continue
-            # except ValueError:
-            #     print("Неверный ввод точки. Введите inf или число")
-            #     continue
             try:
                 x0 = float(input("Введите точку: "))
+                if (number == 3 or number == 4) and -1 < x0 < 1:
+                    print('В этой точке функция не существует')
+                    continue
+                if number == 9 and x0 <= -1:
+                    print('В этой точке функция не существует')
+                    continue
             except ValueError:
                 print("Неверный ввод точки. Введите inf или число")
                 continue
@@ -76,18 +77,12 @@ while number != -1:
                     for i in range(len(vl[number])):
                         plt.vlines(vl[number][i], nanmin(y[y != -inf]), nanmax(y[y != inf]))
                 else:  # отрисовка графика функции в окрестности точки х0
-                    try:
-                        u = float(input("Введите значение окрестности: "))
-                    except ValueError:
-                        print("Неверный ввод окрестности. Введите inf или число!")
-                        continue
-
-                    x = linspace(x0 - u, x0 + u, 101)
+                    x = linspace(x0 - 1, x0 + 1, 101)
                     y = func[number](x)
 
             plt.plot(x, y, color='#b23dff')
             plt.grid()
-            # plt.title('График функции ' + name[number])
+            plt.title('График функции ' + name[number])
             plt.show()
     number = select_function()
 
