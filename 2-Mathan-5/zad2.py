@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from numpy import exp, sqrt, sin, log, linspace, seterr, nanmin, \
     nanmax, inf
 
-# matplotlib.use("TkAgg")
+matplotlib.use("TkAgg")
 seterr(divide='ignore', invalid='ignore')  # обработка ошибок в numpy
 
 # массив лямбда-функций

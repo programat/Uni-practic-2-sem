@@ -1,7 +1,8 @@
 import os
 
 name_file1 = input("Введите название файла, в котором хранятся циклы (без .txt): ")
-if os.path.exists(f'data/{name_file1}.txt'):
+if os.path.exists(f'data/{name_file1}.txt'):  # если существует папка
+    # разбиваем данные на массив
     f = open(f'data/{name_file1}.txt', 'r')
     data = f.read()
     cycles = data.split('\n\n')
@@ -11,6 +12,8 @@ if os.path.exists(f'data/{name_file1}.txt'):
             cycles[i][j] = cycles[i][j].split()
             cycles[i][j] = list(map(int, cycles[i][j]))
     n = len(cycles) - 1
+
+    # создаем двоичную маску
     for i in range(2 ** n):
         mask = bin(i)[2:]
         mask = '0' * (n - len(mask)) + mask
@@ -28,12 +31,15 @@ if os.path.exists(f'data/{name_file1}.txt'):
                         temp.append(edge)
 
         k = 0
+
+        # выстраиваем ребра по возрастанию их номеров
         while k < len(cycles[-1]):
             u, v = cycles[-1][k]
             u, v = min(u, v), max(u, v)
             cycles[-1][k] = [u, v]
             k += 1
 
+        # если
         flag = False
         if len(temp) != len(cycles[-1]):
             flag = True
