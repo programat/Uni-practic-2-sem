@@ -56,10 +56,11 @@ def det(matrix):
     # return ('%f' % determinant).rstrip('0').rstrip('.')
     # return round(float(determinant), 6)
     return determinant
+
 try:
     #подключение файла
     print('Введите название файла c расширением для считывания:')
-    name_file = input()
+    name_file = input('data/')
     for i in name_file:  #если пользователь введет пробелы перед названием
         if(i == ' '): name_file = name_file.replace(' ', '', 1)
         else: break
@@ -75,7 +76,7 @@ try:
 
     #подключение файла на дозапись
     print('Введите название файла c расширением для записи:')
-    name_file = input()
+    name_file = input('data/')
     for i in name_file:  #если пользователь введет пробелы перед названием
         if(i == ' '): name_file = name_file.replace(' ', '', 1)
         else: break
