@@ -14,6 +14,7 @@ def init_matrix(file):
     for i in range(len(a)):
         if (a[i] != []):  # если a[i] - не пустое значение - заполняем массив b
             b.append(a[i])
+    a.clear()  # очистка массива
     if b == []:
         print('Введенные данные пусты')
         exit()
@@ -27,11 +28,12 @@ def init_matrix(file):
     if (len_b != len(b)):
         print('Введенные данные не соответствуют требованиям (матрица не квадратная)')
         exit()
-    return b  # при соблюдении всех условиях - выозвращаем готовую матрицу в нужном виде
+    return b  # при соблюдении всех условиях - возвращаем готовую матрицу в нужном виде
 
-def print_matrix(matrix):
-    for i in range(len(matrix)):
-        print(*matrix[i])
+# функция вывода матрицы, которая в рамках решаемой задачи не нужна
+# def print_matrix(matrix):
+#     for i in range(len(matrix)):
+#         print(*matrix[i])
 
 def swap_row(matrix, i):  # функция перемены строк местами
     if(matrix[i][i] == 0):
@@ -88,6 +90,7 @@ try:
         file_data_output = open(rf'data/{name_file}', 'a', encoding='utf-8')
         file_data_output.write(f'\nОтвет = {answer}')
         file_data_output.close()
+        print('Успешно!')
     except FileNotFoundError:
         print('Файл не найден')
         exit()
