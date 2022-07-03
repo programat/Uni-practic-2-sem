@@ -3,7 +3,7 @@ import uuid  # рандомное хеширование
 import hashlib  # хеширование
 import re  # регулярные выражения
 from prettytable import PrettyTable  # вывод таблицы
-import os  # для работы с системой
+import os  # для работы с консолью
 
 # Для отправки по почте
 import smtplib  # для работы с SMTP (почта)
@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart  # Многокомпонентн
 from email.mime.text import MIMEText  # Текст/HTML
 
 
-# --- блок функций --- #
+# --- Блок функций --- #
 
 #функции хеширования
 def hash_password(password):
@@ -66,9 +66,9 @@ def is_pass_true(text):
 # --- Блок программы --- #
 
 db = sqlite3.connect('server_git.db')
-sql = db.cursor() #курсор нужен для того, чтобы вообще работь с базой данных: мы будем добавлять объекты, удалять их и тд
+sql = db.cursor() # курсор нужен для того, чтобы вообще работь с базой данных: мы будем добавлять объекты, удалять их и тд
 
-#создадим таблицу
+# создадим таблицу
 sql.execute("""CREATE TABLE IF NOT EXISTS users (
     фамилия VARCHAR(32),
     имя VARCHAR(32),
@@ -79,9 +79,9 @@ sql.execute("""CREATE TABLE IF NOT EXISTS users (
     пароль text,
     пароль_скрытый text,
     primary key (логин)
-)""") #IF NOT EXISTS - создать таблицу, если ОНА НЕ СОЗДАНА
+)""") # IF NOT EXISTS - создать таблицу, если ОНА НЕ СОЗДАНА
 
-db.commit() #подтвердили создание таблицы
+db.commit() # подтвердили создание таблицы
 
 main_process = True
 main_process_request = '0'
@@ -111,7 +111,7 @@ while(main_process):
         print(f'    Введите количество пользователей для отображения информации о них (всего - {counter})')
         main_show_users_amount = int(input('    Ввод: '))
 
-        #если введенное число больше максимума
+        # если введенное число больше максимума
         if main_show_users_amount > counter:
             main_show_users_amount = counter
 
@@ -270,7 +270,7 @@ while(main_process):
 
             # проверка пароля
             print('    Для операции изменения/удаления нужно обладать правами доступа, поэтому')
-            user_password = input('    введите пароль: ')
+            user_password = input('    Введите пароль: ')
 
             # проверка на соответствие пароля регулярным выражениям
             while is_pass_true(user_password) == False:

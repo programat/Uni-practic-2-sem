@@ -1,9 +1,7 @@
-import os
-
-name_file1 = input("Введите название файла, в котором хранятся циклы (без .txt): ")
-if os.path.exists(f'data/{name_file1}.txt'):  # если существует папка
+try:
+    name_file1 = input("Введите название файла с расширением, в котором хранятся циклы: ")
     # разбиваем данные на массив
-    f = open(f'data/{name_file1}.txt', 'r')
+    f = open(f'data/{name_file1}', 'r')
     data = f.read()
     cycles = data.split('\n\n')
     for i in range(len(cycles)):
@@ -56,8 +54,8 @@ if os.path.exists(f'data/{name_file1}.txt'):  # если существует п
         if not flag:
             break
 
-    name_file2 = input("Введите название файла, в который необходимо записать ответ (без .txt): ")
-    with open(f'data/{name_file2}.txt', 'w') as graph:
+    name_file2 = input("Введите название файла с расширением, в который необходимо записать ответ: ")
+    with open(f'data/{name_file2}', 'w') as graph:
         if flag:
             graph.write('Решение отсутствует')
         else:
@@ -68,7 +66,8 @@ if os.path.exists(f'data/{name_file1}.txt'):  # если существует п
                     for u, v in cycles[i]:
                         graph.write(str(u) + ' ' + str(v) + '\n')
         print("Успешно!")
-else:
+
+except (FileNotFoundError, KeyboardInterrupt):  # исключение для ошибок прерывания выполнения программы и неправильного обращения к файлу
     print("Файл с входными данными не найден")
 
 input("Для продолжения нажмите любую клавишу...")
