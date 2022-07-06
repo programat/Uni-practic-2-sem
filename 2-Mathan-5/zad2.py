@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from numpy import exp, sqrt, sin, log, linspace, seterr, nanmin, \
     nanmax, inf
 
-matplotlib.use("TkAgg")
+# matplotlib.use("TkAgg")
 seterr(divide='ignore', invalid='ignore')  # обработка ошибок в numpy
 
 # массив лямбда-функций
@@ -86,22 +86,4 @@ while number != -1:
             plt.show()
     number = select_function()
 
-print("До свидания!")
-exit()
-
-# x0 = float(input('x0 = '))
-# u = float(input('u = '))
-# x0_below, x0_above = (x0 - u, x0 + u)
-#
-# y = lambda x: 1 / x
-# y = np.vectorize(y)
-# if u != float('inf'):
-#     x = np.linspace(x0_below, x0_above)
-# else:
-#     x = np.linspace(-1000, 1000, 500)
-# x[(x < -1) & (x > 1)] = np.nan
-#
-# plt.plot(x, y(x))
-# plt.grid()
-#
-# plt.show()
+input("Для продолжения нажмите любую клавишу...")
